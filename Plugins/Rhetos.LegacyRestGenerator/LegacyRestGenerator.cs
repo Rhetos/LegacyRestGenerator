@@ -18,7 +18,6 @@
 */
 using Rhetos.Compiler;
 using Rhetos.Extensibility;
-using Rhetos.Generator;
 using Rhetos.Logging;
 using System;
 using System.CodeDom.Compiler;
@@ -40,7 +39,11 @@ namespace Rhetos.LegacyRestGenerator
         private readonly IAssemblyGenerator _assemblyGenerator;
         private readonly ILogger _logger;
         private readonly ILogger _sourceLogger;
-        private string assemblyName = "DomainService";
+
+        public static string GetAssemblyPath()
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Generated", "DomainService.dll");
+        }
 
         public LegacyRestGenerator(
             IPluginsContainer<ILegacyRestGeneratorPlugin> plugins,
@@ -66,7 +69,7 @@ namespace Rhetos.LegacyRestGenerator
             {
                 GenerateExecutable = false,
                 GenerateInMemory = false,
-                OutputAssembly = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", assemblyName + ".dll"),
+                OutputAssembly = GetAssemblyPath(),
                 IncludeDebugInformation = true,
                 CompilerOptions = "/optimize"
             };

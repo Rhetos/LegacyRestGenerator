@@ -78,10 +78,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Packages\Rhetos\Rhetos.Extensibility.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Rhetos.Generator.Interfaces, Version=0.9.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Packages\Rhetos\Rhetos.Generator.Interfaces.dll</HintPath>
-    </Reference>
     <Reference Include="Rhetos.Interfaces, Version=0.9.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Packages\Rhetos\Rhetos.Interfaces.dll</HintPath>
