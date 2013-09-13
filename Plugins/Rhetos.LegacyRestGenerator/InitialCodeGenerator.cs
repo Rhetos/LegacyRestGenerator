@@ -210,8 +210,6 @@ namespace Rhetos
             codeBuilder.AddReferencesFromDependency(typeof(Autofac.Integration.Wcf.AutofacServiceHostFactory));
 
             // wcf dataservices
-            codeBuilder.AddReferencesFromDependency(typeof(System.Data.Services.DataServiceException));
-            codeBuilder.AddReferencesFromDependency(typeof(System.Data.Services.Common.DataServiceEntityAttribute));
             codeBuilder.AddReferencesFromDependency(typeof(System.ServiceModel.ServiceContractAttribute));
             codeBuilder.AddReferencesFromDependency(typeof(System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute));
             codeBuilder.AddReferencesFromDependency(typeof(System.ServiceModel.Web.WebServiceHost));
