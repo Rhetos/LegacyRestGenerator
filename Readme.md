@@ -16,7 +16,7 @@ Read/Insert/Update/Delete operations for all entities as well as Actions and oth
 Prerequisites
 =============
 
-Utilities in this project are based on relative path to Rhetos repository. [Rhetos source](https://github.com/Rhetos/Rhetos) must be downloaded to a folder with relative path "..\..\Rhetos". 
+Utilities in this project are based on relative path to Rhetos repository. [Rhetos source](https://github.com/Rhetos/Rhetos) must be downloaded to a folder with relative path `..\..\Rhetos`. 
 
 Sample folder structure:
  
@@ -29,9 +29,9 @@ Sample folder structure:
 Build and Installation
 ======================
 
-Build package with Build.bat. Check BuildError.log for errors.
+Build package with `Build.bat`. Check BuildError.log for errors.
 
 Instalation package creation:
 
-1. Set the new version number in "ChangeVersion.bat" and start it.
-2. Start "CreatePackage.bat". Instalation package (.zip) is going to be created in parent directory of LegacyRestGenerator.
+1. Set the new version number in `ChangeVersion.bat` and start it.
+2. Start `CreatePackage.bat`. Instalation package (.zip) is going to be created in parent directory of LegacyRestGenerator.
