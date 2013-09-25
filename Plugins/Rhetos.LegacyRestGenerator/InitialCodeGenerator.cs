@@ -90,18 +90,12 @@ namespace Rhetos
         protected override void OnOpening()
         {
             base.OnOpening();
-            this.AddServiceEndpoint(_serviceType, new WebHttpBinding(), string.Empty);
-            this.AddServiceEndpoint(_serviceType, new BasicHttpBinding(), ""SOAP"");
-
-            ((WebHttpBinding)Description.Endpoints.Where(e => e.Binding is WebHttpBinding).Single().Binding).Security.Mode = WebHttpSecurityMode.TransportCredentialOnly;
-            ((WebHttpBinding)Description.Endpoints.Where(e => e.Binding is WebHttpBinding).Single().Binding).Security.Transport.ClientCredentialType = HttpClientCredentialType.Windows;
-
-            ((BasicHttpBinding)Description.Endpoints.Where(e => e.Binding is BasicHttpBinding).Single().Binding).Security.Mode = BasicHttpSecurityMode.TransportCredentialOnly;
-            ((BasicHttpBinding)Description.Endpoints.Where(e => e.Binding is BasicHttpBinding).Single().Binding).Security.Transport.ClientCredentialType = HttpClientCredentialType.Windows;
+            this.AddServiceEndpoint(_serviceType, new WebHttpBinding(""rhetosWebHttpBinding""), string.Empty);
+            this.AddServiceEndpoint(_serviceType, new BasicHttpBinding(""rhetosBasicHttpBinding""), ""SOAP"");
 
             ((ServiceEndpoint)(Description.Endpoints.Where(e => e.Binding is WebHttpBinding).Single())).Behaviors.Add(new WebHttpBehavior()); 
-            if (Description.Behaviors.Find<ServiceMetadataBehavior>() == null)
-                Description.Behaviors.Add(new ServiceMetadataBehavior { HttpGetEnabled = true });
+            if (Description.Behaviors.Find<Rhetos.JsonErrorServiceBehavior>() == null)
+                Description.Behaviors.Add(new Rhetos.JsonErrorServiceBehavior());
         }
     }
 
@@ -203,15 +197,13 @@ namespace Rhetos
             codeBuilder.AddReferencesFromDependency(typeof(IClaim));
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Utilities.XmlUtility));
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Dom.IDomainObjectModel));
+            codeBuilder.AddReferencesFromDependency(typeof(Rhetos.ErrorServiceBehavior));
             codeBuilder.AddReferencesFromDependency(typeof(ILogProvider));
-
             // registration
             codeBuilder.AddReferencesFromDependency(typeof(System.ComponentModel.Composition.ExportAttribute));
             codeBuilder.AddReferencesFromDependency(typeof(Autofac.Integration.Wcf.AutofacServiceHostFactory));
 
             // wcf dataservices
-            codeBuilder.AddReferencesFromDependency(typeof(System.Data.Services.DataServiceException));
-            codeBuilder.AddReferencesFromDependency(typeof(System.Data.Services.Common.DataServiceEntityAttribute));
             codeBuilder.AddReferencesFromDependency(typeof(System.ServiceModel.ServiceContractAttribute));
             codeBuilder.AddReferencesFromDependency(typeof(System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute));
             codeBuilder.AddReferencesFromDependency(typeof(System.ServiceModel.Web.WebServiceHost));
