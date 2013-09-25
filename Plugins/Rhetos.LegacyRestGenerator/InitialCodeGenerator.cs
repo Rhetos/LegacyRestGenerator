@@ -199,6 +199,8 @@ namespace Rhetos
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Dom.IDomainObjectModel));
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.ErrorServiceBehavior));
             codeBuilder.AddReferencesFromDependency(typeof(ILogProvider));
+            codeBuilder.AddReferencesFromDependency(typeof(Rhetos.JsonErrorServiceBehavior));
+
             // registration
             codeBuilder.AddReferencesFromDependency(typeof(System.ComponentModel.Composition.ExportAttribute));
             codeBuilder.AddReferencesFromDependency(typeof(Autofac.Integration.Wcf.AutofacServiceHostFactory));
