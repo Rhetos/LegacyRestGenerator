@@ -194,7 +194,6 @@ namespace Rhetos
             codeBuilder.AddReferencesFromDependency(typeof(WebFaultException));
             codeBuilder.AddReferencesFromDependency(typeof(System.Linq.Enumerable));
             codeBuilder.AddReferencesFromDependency(typeof(System.Net.HttpStatusCode));
-            codeBuilder.AddReferencesFromDependency(typeof(IClaim));
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Utilities.XmlUtility));
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Dom.IDomainObjectModel));
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.ErrorServiceBehavior));
