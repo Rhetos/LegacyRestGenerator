@@ -19,7 +19,7 @@
 using System;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using Rhetos;
+using Rhetos.Web;
 using Rhetos.Utilities;
 using Rhetos.Compiler;
 using Rhetos.Dom;
@@ -52,7 +52,7 @@ using System.Web;
 using System.IO;
 using System.Text;
 using System.Net;
-using Rhetos;
+using Rhetos.Web;
 using Rhetos.Processing;
 using Rhetos.Logging;
 using Autofac;
@@ -94,8 +94,8 @@ namespace Rhetos
             this.AddServiceEndpoint(_serviceType, new BasicHttpBinding(""rhetosBasicHttpBinding""), ""SOAP"");
 
             ((ServiceEndpoint)(Description.Endpoints.Where(e => e.Binding is WebHttpBinding).Single())).Behaviors.Add(new WebHttpBehavior()); 
-            if (Description.Behaviors.Find<Rhetos.JsonErrorServiceBehavior>() == null)
-                Description.Behaviors.Add(new Rhetos.JsonErrorServiceBehavior());
+            if (Description.Behaviors.Find<Rhetos.Web.JsonErrorServiceBehavior>() == null)
+                Description.Behaviors.Add(new Rhetos.Web.JsonErrorServiceBehavior());
         }
     }
 
@@ -117,6 +117,10 @@ namespace Rhetos
             System.Web.Routing.RouteTable.Routes.Add(new System.ServiceModel.Activation.ServiceRoute(""DomainService.svc"", 
                           new RestServiceHostFactory(), typeof(DomainService)));
         }
+
+        public void InitializeApplicationInstance(System.Web.HttpApplication context)
+        {
+        }
     }
 
 " + NamespaceMembersTag + @"
@@ -136,26 +140,16 @@ namespace Rhetos
 	[System.ServiceModel.Activation.AspNetCompatibilityRequirements(RequirementsMode = System.ServiceModel.Activation.AspNetCompatibilityRequirementsMode.Required)]
 	public class DomainService
 	{
-
         private readonly IServerApplication _serverApplication;
 
         public DomainService(
             IServerApplication serverApplication,
-            Rhetos.Dom.IDomainObjectModel domainObjectModel,
             ILogProvider logProvider)
         {
             ILogger logger = logProvider.GetLogger(""RestService"");
             logger.Trace(""Service initialization."");
 
             _serverApplication = serverApplication;
-
-            if (Rhetos.Utilities.XmlUtility.Dom == null)
-                lock(Rhetos.Utilities.XmlUtility.DomLock)
-                    if (Rhetos.Utilities.XmlUtility.Dom == null)
-                    {
-                        Rhetos.Utilities.XmlUtility.Dom = domainObjectModel.ObjectModel;
-                        logger.Trace(""Domain object model initialized."");
-                    }
         }
 
         private static ServerCommandInfo ToServerCommand(ICommandInfo commandInfo)
@@ -195,10 +189,9 @@ namespace Rhetos
             codeBuilder.AddReferencesFromDependency(typeof(System.Linq.Enumerable));
             codeBuilder.AddReferencesFromDependency(typeof(System.Net.HttpStatusCode));
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Utilities.XmlUtility));
-            codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Dom.IDomainObjectModel));
-            codeBuilder.AddReferencesFromDependency(typeof(Rhetos.ErrorServiceBehavior));
+            codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Web.ErrorServiceBehavior));
             codeBuilder.AddReferencesFromDependency(typeof(ILogProvider));
-            codeBuilder.AddReferencesFromDependency(typeof(Rhetos.JsonErrorServiceBehavior));
+            codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Web.JsonErrorServiceBehavior));
 
             // registration
             codeBuilder.AddReferencesFromDependency(typeof(System.ComponentModel.Composition.ExportAttribute));
