@@ -70,8 +70,8 @@ namespace Rhetos.LegacyRestGenerator.DefaultConcepts
                 if (filterType == null)    
                     filterType = Type.GetType(filter);
 
-                if (filterType == null && Rhetos.Utilities.XmlUtility.Dom != null)
-                    filterType = Rhetos.Utilities.XmlUtility.Dom.GetType(filter);
+                if (filterType == null)
+                    filterType = _dom.Assembly.GetType(filter);
 
                 if (filterType == null)
                     throw new Rhetos.UserException(""Filter type '"" + filter + ""' is not recognised."");
@@ -163,7 +163,7 @@ namespace Rhetos.LegacyRestGenerator.DefaultConcepts
             var result = _serverApplication.Execute(ToServerCommand(commandInfo));
             CheckForErrors(result);
 
-            var resultData = Rhetos.Utilities.XmlUtility.DeserializeFromXml<QueryDataSourceCommandResult>(result.ServerCommandResults[0].Data);
+            var resultData = _xmlUtility.DeserializeFromXml<QueryDataSourceCommandResult>(result.ServerCommandResults[0].Data);
 
             commandInfo.Filter = null;
             commandInfo.GenericFilter = null;

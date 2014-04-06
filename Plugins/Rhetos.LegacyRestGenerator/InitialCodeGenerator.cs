@@ -138,27 +138,33 @@ namespace Rhetos
     } 
 
     [ServiceContract]
-	[System.ServiceModel.Activation.AspNetCompatibilityRequirements(RequirementsMode = System.ServiceModel.Activation.AspNetCompatibilityRequirementsMode.Required)]
-	public class DomainService
-	{
+    [System.ServiceModel.Activation.AspNetCompatibilityRequirements(RequirementsMode = System.ServiceModel.Activation.AspNetCompatibilityRequirementsMode.Required)]
+    public class DomainService
+    {
         private readonly IServerApplication _serverApplication;
+        private readonly Rhetos.Utilities.XmlUtility _xmlUtility;
+        private readonly Rhetos.Dom.IDomainObjectModel _dom;
 
         public DomainService(
             IServerApplication serverApplication,
-            ILogProvider logProvider)
+            ILogProvider logProvider,
+            Rhetos.Utilities.XmlUtility xmlUtility,
+            Rhetos.Dom.IDomainObjectModel dom)
         {
             ILogger logger = logProvider.GetLogger(""RestService"");
             logger.Trace(""Service initialization."");
 
             _serverApplication = serverApplication;
+            _xmlUtility = xmlUtility;
+            _dom = dom;
         }
 
-        private static ServerCommandInfo ToServerCommand(ICommandInfo commandInfo)
+        private ServerCommandInfo ToServerCommand(ICommandInfo commandInfo)
         {
             return new ServerCommandInfo
             {
                 CommandName = commandInfo.GetType().Name,
-                Data = Rhetos.Utilities.XmlUtility.SerializeToXml(commandInfo)
+                Data = _xmlUtility.SerializeToXml(commandInfo)
             };
         }
 
@@ -184,7 +190,6 @@ namespace Rhetos
             codeBuilder.AddReferencesFromDependency(typeof(IServerApplication));
             codeBuilder.AddReferencesFromDependency(typeof(ServiceContractAttribute));
             codeBuilder.AddReferencesFromDependency(typeof(ICommandInfo));
-            codeBuilder.AddReferencesFromDependency(typeof(XmlUtility));
             codeBuilder.AddReferencesFromDependency(typeof(Guid));
             codeBuilder.AddReferencesFromDependency(typeof(WebFaultException));
             codeBuilder.AddReferencesFromDependency(typeof(System.Linq.Enumerable));
@@ -193,6 +198,7 @@ namespace Rhetos
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Web.ErrorServiceBehavior));
             codeBuilder.AddReferencesFromDependency(typeof(ILogProvider));
             codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Web.JsonErrorServiceBehavior));
+            codeBuilder.AddReferencesFromDependency(typeof(Rhetos.Dom.IDomainObjectModel));
 
             // registration
             codeBuilder.AddReferencesFromDependency(typeof(System.ComponentModel.Composition.ExportAttribute));
