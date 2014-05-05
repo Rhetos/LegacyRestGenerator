@@ -123,6 +123,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ILegacyRestGeneratorPlugin.cs" />
     <Compile Include="LegacyRestGeneratorModuleConfiguration.cs" />
     <Compile Include="LegacyRestGenerator.cs" />
