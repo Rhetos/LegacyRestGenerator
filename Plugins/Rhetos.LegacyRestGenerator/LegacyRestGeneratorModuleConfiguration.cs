@@ -33,7 +33,7 @@ namespace Rhetos.LegacyRestGenerator
     {
         protected override void Load(ContainerBuilder builder)
         {
-            Rhetos.Extensibility.PluginsUtility.RegisterPlugins<ILegacyRestGeneratorPlugin>(builder);
+            Rhetos.Extensibility.Plugins.FindAndRegisterPlugins<ILegacyRestGeneratorPlugin>(builder);
 
             base.Load(builder);
         }
