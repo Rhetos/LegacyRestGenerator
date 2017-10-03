@@ -67,11 +67,11 @@ namespace Rhetos.LegacyRestGenerator.DefaultConcepts
                 if (filterTypes != null && filterTypes.Count() == 1)
                     filterType = filterTypes[0];
 
-                if (filterType == null)    
+                if (filterType == null)
                     filterType = Type.GetType(filter);
 
                 if (filterType == null)
-                    filterType = _dom.Assembly.GetType(filter);
+                    filterType = _dom.GetType(filter);
 
                 if (filterType == null)
                     throw new Rhetos.UserException(""Filter type '"" + filter + ""' is not recognised."");

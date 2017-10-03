@@ -12,7 +12,7 @@
     <copyright>Copyright Omega software 2015</copyright>
     <tags>Rhetos</tags>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="Rhetos, Version=0.9.28" />
+      <frameworkAssembly assemblyName="Rhetos, Version=2.0.0" />
     </frameworkAssemblies>
   </metadata>
   <files>

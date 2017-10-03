@@ -58,6 +58,7 @@ using Rhetos.Processing;
 using Rhetos.Logging;
 using Autofac;
 using Rhetos.XmlSerialization;
+using Rhetos.Dom;
 using Rhetos.Dom.DefaultConcepts;
 using System.Runtime.Serialization.Json;
 using Rhetos.Processing.DefaultCommands;
@@ -213,7 +214,8 @@ namespace Rhetos
             codeBuilder.AddReferencesFromDependency(typeof(System.ServiceModel.Activation.ServiceHostFactory));
             codeBuilder.AddReferencesFromDependency(typeof(Route));
 
-            codeBuilder.AddReference(Path.Combine(_rootPath, "ServerDom.dll"));
+            foreach (var file in Directory.GetFiles(_rootPath, "ServerDom*.dll", SearchOption.AllDirectories))
+                codeBuilder.AddReference(file);
             codeBuilder.AddReference(Path.Combine(_rootPath, "Autofac.dll"));
         }
 
