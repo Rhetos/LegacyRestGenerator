@@ -1,20 +1,18 @@
-@REM HINT: SET SECOND ARGUMENT TO /NOPAUSE WHEN AUTOMATING THE BUILD.
+SETLOCAL
+SET Version=1.8.0
+SET Prerelease=auto
 
-@SET Config=%1%
-@IF [%1] == [] SET Config=Debug
-
-@IF DEFINED VisualStudioVersion GOTO SkipVcvarsall
-@SET VSTOOLS=
-@IF "%VS100COMNTOOLS%" NEQ "" SET VSTOOLS=%VS100COMNTOOLS%
-@IF "%VS110COMNTOOLS%" NEQ "" SET VSTOOLS=%VS110COMNTOOLS%
-@IF "%VS120COMNTOOLS%" NEQ "" SET VSTOOLS=%VS120COMNTOOLS%
-CALL "%VSTOOLS%\..\..\VC\vcvarsall.bat" x86 || GOTO Error0
+IF NOT DEFINED VisualStudioVersion CALL "%VS140COMNTOOLS%VsDevCmd.bat" || ECHO ERROR: Cannot find Visual Studio 2015, missing VS140COMNTOOLS variable. && GOTO Error0
 @ECHO ON
-:SkipVcvarsall
 
-CALL "%~dp0Packages\Rhetos\UpdateRhetosDlls.bat" /nopause || GOTO Error0
-IF EXIST Build.log DEL Build.log || GOTO Error0
-DevEnv.com "%~dp0Rhetos.LegacyRestGenerator.sln" /rebuild %Config% /out Build.log || TYPE Build.log && GOTO Error0
+PowerShell .\ChangeVersion.ps1 %Version% %Prerelease% || GOTO Error0
+WHERE /Q NuGet.exe || ECHO ERROR: Please download the NuGet.exe command line tool. && GOTO Error0
+NuGet restore -NonInteractive || GOTO Error0
+MSBuild /target:rebuild /p:Configuration=Debug /verbosity:minimal /fileLogger || GOTO Error0
+IF NOT EXIST Install md Install
+NuGet pack -OutputDirectory Install || GOTO Error0
+REM Updating the version of all projects back to "dev" (internal development build), to avoid spamming git history with timestamped prerelease versions.
+PowerShell .\ChangeVersion.ps1 %Version% dev || GOTO Error0
 
 @REM ================================================
 
@@ -25,5 +23,5 @@ DevEnv.com "%~dp0Rhetos.LegacyRestGenerator.sln" /rebuild %Config% /out Build.lo
 :Error0
 @ECHO.
 @ECHO %~nx0 FAILED.
-@IF /I [%2] NEQ [/NOPAUSE] @PAUSE
+@IF /I [%1] NEQ [/NOPAUSE] @PAUSE
 @EXIT /B 1

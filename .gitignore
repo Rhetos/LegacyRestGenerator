@@ -12,6 +12,7 @@ TestResults
 *.suo
 *.user
 *.sln.docstates
+.vs/
 
 # Build results
 [Dd]ebug/
@@ -110,11 +111,5 @@ Backup*/
 UpgradeLog*.XML
 *.bak
 
-# NuGet
-packages
-Packages
-.nuget/NuGet.exe
-
-# Rhetos
-RhetosSourcePath.txt
-FileVersions.txt
+# Custom build results
+Install/

@@ -2,24 +2,25 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Rhetos.LegacyRestGenerator</id>
-    <version>1.8.0-alpha001</version>
+    <version>1.8.0-dev</version>
     <authors>Omega software</authors>
     <owners>Omega software</owners>
     <licenseUrl>http://opensource.org/licenses/AGPL-3.0</licenseUrl>
     <projectUrl>https://github.com/rhetos/rhetos</projectUrl>
-    <description>LegacyRestGenerator is a DSL package (a plugin module) for Rhetos development platform.
+    <description>LegacyRestGenerator is a plugin package for Rhetos development platform.
       LegacyRestGenerator automatically generates REST interface for all data structures and actions that are defined in a Rhetos application.</description>
     <copyright>Copyright Omega software 2015</copyright>
     <tags>Rhetos</tags>
-    <frameworkAssemblies>
-      <frameworkAssembly assemblyName="Rhetos, Version=2.0.0" />
-    </frameworkAssemblies>
+    <dependencies>
+      <dependency id="Rhetos" version="2.0.0" />
+      <dependency id="Rhetos.CommonConcepts" version="2.0.0" />
+    </dependencies>
   </metadata>
   <files>
     <file src="Readme.md" target="" />
-    <file src="Plugins\Rhetos.LegacyRestGenerator\bin\Debug\Rhetos.LegacyRestGenerator.dll" target="Plugins" />
-    <file src="Plugins\Rhetos.LegacyRestGenerator\bin\Debug\Rhetos.LegacyRestGenerator.pdb" target="Plugins" />
-    <file src="Plugins\Rhetos.LegacyRestGenerator.DefaultConcepts\bin\Debug\Rhetos.LegacyRestGenerator.DefaultConcepts.dll" target="Plugins" />
-    <file src="Plugins\Rhetos.LegacyRestGenerator.DefaultConcepts\bin\Debug\Rhetos.LegacyRestGenerator.DefaultConcepts.pdb" target="Plugins" />
+    <file src="Plugins\Rhetos.LegacyRestGenerator\bin\Debug\Rhetos.LegacyRestGenerator.dll" target="lib\net451" />
+    <file src="Plugins\Rhetos.LegacyRestGenerator\bin\Debug\Rhetos.LegacyRestGenerator.pdb" target="lib\net451" />
+    <file src="Plugins\Rhetos.LegacyRestGenerator.DefaultConcepts\bin\Debug\Rhetos.LegacyRestGenerator.DefaultConcepts.dll" target="lib\net451" />
+    <file src="Plugins\Rhetos.LegacyRestGenerator.DefaultConcepts\bin\Debug\Rhetos.LegacyRestGenerator.DefaultConcepts.pdb" target="lib\net451" />
   </files>
 </package>

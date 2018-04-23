@@ -79,7 +79,7 @@ namespace Rhetos.LegacyRestGenerator
 
         public IEnumerable<string> Dependencies
         {
-            get { return new []{""}; }
+            get { return null; }
         }
     }
 }
