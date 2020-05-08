@@ -143,11 +143,6 @@ namespace Rhetos.LegacyRestGenerator.DefaultConcepts
         }
 ", InitialCodeGenerator.ImplementationMembersTag);
 
-            codeBuilder.InsertCode(@"
-using Rhetos.Processing.DefaultCommands;
-using Rhetos.Dom.DefaultConcepts;
-", InitialCodeGenerator.UsingTag);
-
             codeBuilder.AddReferencesFromDependency(typeof(QueryDataSourceCommandInfo));
             codeBuilder.AddReferencesFromDependency(typeof(IEntity));
         }

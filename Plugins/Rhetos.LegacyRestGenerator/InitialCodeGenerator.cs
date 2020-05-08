@@ -17,18 +17,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using Rhetos.Web;
-using Rhetos.Utilities;
 using Rhetos.Compiler;
-using Rhetos.Dom;
 using Rhetos.Dsl;
 using Rhetos.Logging;
 using Rhetos.Processing;
-using Rhetos.Security;
+using System;
 using System.IO;
+using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Web.Routing;
 
 namespace Rhetos.LegacyRestGenerator
@@ -41,27 +37,28 @@ namespace Rhetos.LegacyRestGenerator
 
         private const string CodeSnippet =
 @"
+using Autofac;
+using Rhetos.Dom;
+using Rhetos.Dom.DefaultConcepts;
+using Rhetos.Logging;
+using Rhetos.Processing;
+using Rhetos.Processing.DefaultCommands;
+using Rhetos.Web;
+using Rhetos.XmlSerialization;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Runtime.Serialization.Json;
 using System.ServiceModel;
-using System.ServiceModel.Web;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Configuration;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
-using System.Web;
-using System.IO;
+using System.ServiceModel.Web;
 using System.Text;
-using System.Net;
-using Rhetos.Web;
-using Rhetos.Processing;
-using Rhetos.Logging;
-using Autofac;
-using Rhetos.XmlSerialization;
-using Rhetos.Dom;
-using Rhetos.Dom.DefaultConcepts;
-using System.Runtime.Serialization.Json;
-using Rhetos.Processing.DefaultCommands;
+using System.Web;
 using System.Web.Routing;
 using Module = Autofac.Module;
 

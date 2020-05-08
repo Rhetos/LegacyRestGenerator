@@ -17,17 +17,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.ComponentModel.Composition;
-using System.Globalization;
-using System.Xml;
 using Rhetos.Compiler;
 using Rhetos.Dsl;
 using Rhetos.Dsl.DefaultConcepts;
 using Rhetos.Extensibility;
-using Rhetos.LegacyRestGenerator;
-using Rhetos.XmlSerialization;
 using Rhetos.Processing.DefaultCommands;
+using Rhetos.XmlSerialization;
+using System.ComponentModel.Composition;
+using System.Xml;
 
 namespace Rhetos.LegacyRestGenerator.DefaultConcepts
 {
@@ -179,13 +176,6 @@ namespace Rhetos.LegacyRestGenerator.DefaultConcepts
 ", InitialCodeGenerator.ImplementationMembersTag);
 
             codeBuilder.InsertCode(@"
-using Rhetos.Processing.DefaultCommands;
-using Rhetos.Dom.DefaultConcepts;
-using Rhetos.XmlSerialization;
-using System.Linq;
-", InitialCodeGenerator.UsingTag);
-
-            codeBuilder.InsertCode(@"
     public class QueryResult<T>
     {
         public List<T> Records { get; set; }
@@ -215,15 +205,8 @@ using System.Linq;
 
 ", InitialCodeGenerator.ImplementationMembersTag);
 
-            codeBuilder.InsertCode(@"
-using System.IO;
-using System.Text;
-using System.Runtime.Serialization.Json;
-", InitialCodeGenerator.UsingTag);
-
             codeBuilder.AddReferencesFromDependency(typeof(XmlReader));
             codeBuilder.AddReferencesFromDependency(typeof(System.Runtime.Serialization.Json.DataContractJsonSerializer));
-
         }
     }
 }
