@@ -31,14 +31,14 @@ using Rhetos.LegacyRestGenerator;
 namespace Rhetos.LegacyRestGenerator.DefaultConcepts
 {
     [Export(typeof(ILegacyRestGeneratorPlugin))]
-    [ExportMetadata(MefProvider.Implements, typeof(FilterByInfo))]
-    public class FilterByCodeGenerator : ILegacyRestGeneratorPlugin
+    [ExportMetadata(MefProvider.Implements, typeof(LoadInfo))]
+    public class LoadCodeGenerator : ILegacyRestGeneratorPlugin
     {
-        private static string CodeSnippet(FilterByInfo info)
+        private static string CodeSnippet(LoadInfo info)
         {
             var fullTypeName = info.Parameter;
             if (System.CodeDom.Compiler.CodeGenerator.IsValidLanguageIndependentIdentifier(fullTypeName))
-                fullTypeName = info.Source.Module.Name + "." + fullTypeName;
+                fullTypeName = info.DataStructure.Module.Name + "." + fullTypeName;
 
             string result = String.Format(
 @"Tuple.Create(""{0}"", typeof({0})),
@@ -66,10 +66,10 @@ namespace Rhetos.LegacyRestGenerator.DefaultConcepts
 
         public void GenerateCode(IConceptInfo conceptInfo, ICodeBuilder codeBuilder)
         {
-            var info = (FilterByInfo)conceptInfo;
+            var info = (LoadInfo)conceptInfo;
 
-            if (DataStructureCodeGenerator.IsTypeSupported(info.Source))
-                codeBuilder.InsertCode(CodeSnippet(info), DataStructureCodeGenerator.FilterTypesTag, info.Source);
+            if (DataStructureCodeGenerator.IsTypeSupported(info.DataStructure))
+                codeBuilder.InsertCode(CodeSnippet(info), DataStructureCodeGenerator.FilterTypesTag, info.DataStructure);
         }
     }
 }
