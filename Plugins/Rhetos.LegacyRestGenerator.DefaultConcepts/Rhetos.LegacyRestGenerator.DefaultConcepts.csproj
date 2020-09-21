@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ActionCodeGenerator.cs" />
     <Compile Include="DataStructureCodeGenerator.cs" />
+    <Compile Include="ReadParametersHelper.cs" />
     <Compile Include="QueryCodeGenerator.cs" />
     <Compile Include="FilterCodeGenerator.cs" />
     <Compile Include="QueryFilterCodeGenerator.cs" />
@@ -70,6 +71,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Rhetos">
+      <Version>4.1.0-dev2009211716e74ed3</Version>
+    </PackageReference>
+    <PackageReference Include="Rhetos.CommonConcepts">
+      <Version>4.1.0-dev2009211716e74ed3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -17,16 +17,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
 using Rhetos.Compiler;
 using Rhetos.Dsl;
 using Rhetos.Dsl.DefaultConcepts;
 using Rhetos.Extensibility;
-using Rhetos.LegacyRestGenerator;
+using System.ComponentModel.Composition;
 
 namespace Rhetos.LegacyRestGenerator.DefaultConcepts
 {
@@ -34,42 +29,10 @@ namespace Rhetos.LegacyRestGenerator.DefaultConcepts
     [ExportMetadata(MefProvider.Implements, typeof(LoadInfo))]
     public class LoadCodeGenerator : ILegacyRestGeneratorPlugin
     {
-        private static string CodeSnippet(LoadInfo info)
-        {
-            var fullTypeName = info.Parameter;
-            if (System.CodeDom.Compiler.CodeGenerator.IsValidLanguageIndependentIdentifier(fullTypeName))
-                fullTypeName = info.DataStructure.Module.Name + "." + fullTypeName;
-
-            string result = String.Format(
-@"Tuple.Create(""{0}"", typeof({0})),
-                ", fullTypeName);
-
-            var shortName = TryExtractShortName(fullTypeName);
-            if (shortName != null)
-                result += String.Format(
-@"Tuple.Create(""{0}"", typeof({1})),
-                ", shortName, fullTypeName);
-
-            return result;
-        }
-
-        private static string TryExtractShortName(string typeName)
-        {
-            if (typeName.Contains('.'))
-            {
-                var shortName = typeName.Split('.').Last();
-                if (System.CodeDom.Compiler.CodeGenerator.IsValidLanguageIndependentIdentifier(shortName))
-                    return shortName;
-            }
-            return null;
-        }
-
         public void GenerateCode(IConceptInfo conceptInfo, ICodeBuilder codeBuilder)
         {
             var info = (LoadInfo)conceptInfo;
-
-            if (DataStructureCodeGenerator.IsTypeSupported(info.DataStructure))
-                codeBuilder.InsertCode(CodeSnippet(info), DataStructureCodeGenerator.FilterTypesTag, info.DataStructure);
+            ReadParametersHelper.GenerateFilterParametersIfSupported(codeBuilder, info.DataStructure, info.Parameter);
         }
     }
 }
